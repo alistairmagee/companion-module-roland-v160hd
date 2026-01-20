@@ -171,7 +171,7 @@ module.exports = {
 		{ id: '00000D', label: 'SDI Output 1' },
 		{ id: '00000E', label: 'SDI Output 2' },
 		{ id: '00000F', label: 'SDI Output 3' },
-		{ id: '000110', label: 'USB Output' },
+		{ id: '000010', label: 'USB Output' },
 	],
 
 	CHOICES_OUTPUTSASSIGN: [

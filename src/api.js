@@ -287,7 +287,7 @@ module.exports = {
         }
     },
 
-	/*getTallyData: function() {
+/*	getTallyData: function() {
 		let self = this;
 
 		for (let i = 0; i < 16; i++) {
@@ -296,8 +296,8 @@ module.exports = {
 
 			self.sendRawCommand('RQH:' + command);
 		}
-	},*/
-
+	},
+*/
 	getMemoryNames: function () {
 		let self = this
 
@@ -380,9 +380,10 @@ module.exports = {
 
 												let value = dataSuffix[1]
 
-												/*if (param1 == '0C' && param2 == '00') { //tally message
+                                                if (param1 == '0C' && param2 == '00') { //tally message
 													self.updateTally(param3, value);
-												}*/
+													self.logVerbose('Received Tally Message: ' + value )
+												}
 
 												if (param1 == '0C' && param2 == '00' && param3 == '00') {
 													//subscribe tally message
@@ -395,12 +396,14 @@ module.exports = {
 
 														let tallyState = value[index] + value[index + 1]
 														tallyState = tallyState.toString(16).padStart(2, '0').toUpperCase()
+                                                        self.logVerbose('Received Tally Message: ' + input + ', ' + tallyState)
 
 														self.updateTally(input, tallyState)
 
 														index = index + 2
 													}
 												}
+												
 
 												if (param1 == '00') {
 													if (param2 == '00' && param3 == '11') {

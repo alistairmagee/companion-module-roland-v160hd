@@ -2690,6 +2690,7 @@ module.exports = {
                         {id: 'Output', label: 'Output Data' },
                         {id: 'Key', label: 'PinP & Key Data' },
                         {id: 'Memory', label: 'Memory Data' },
+                       // {id: 'Tally', label: 'Tally Data' },
 					],
 				},
 			],
@@ -2735,10 +2736,31 @@ module.exports = {
                         self.getMemoryNames();
                         self.getLastMemoryLoaded();
                         break;
+                   // case 'Tally':
+                   //     self.getTallyData();
+                   //     break;
                     default:
                         self.log('debug', 'Requested Invalid Feedback Update: ' + options.requested)
                 }
-			},
+            },
+        }
+
+        actions.sendDevCommand = {
+
+            name: 'Send Raw Command',
+            options: [
+                {
+                  type: 'textinput',
+                  label: 'Command String',
+                  id: 'rawCommand',
+                },
+            ],
+            callback: function(action, bank) {
+                let options = action.options
+                let command = options.rawCommand
+                console.log("SENDING RAW COMMAND: " + command)
+                self.sendRawCommand(command)
+            },
 		}
 		
         self.setActionDefinitions(actions)
