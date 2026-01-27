@@ -2750,16 +2750,37 @@ module.exports = {
             name: 'Send Raw Command',
             options: [
                 {
+                  type: 'dropdown',
+                  label: 'Type of Command',
+                  id: 'commandType',
+                  choices: [
+                    {id: 'Request', label: 'Request'},
+                    {id: 'Command', label: 'Command'},
+                  ]
+                },
+                {
                   type: 'textinput',
-                  label: 'Command String',
-                  id: 'rawCommand',
+                  label: 'Command Address',
+                  id: 'address',
+                },
+                {
+                  type: 'textinput',
+                  label: 'Value',
+                  id: 'value',
                 },
             ],
             callback: function(action, bank) {
-                let options = action.options
-                let command = options.rawCommand
-                console.log("SENDING RAW COMMAND: " + command)
-                self.sendRawCommand(command)
+				let options = action.options
+                let address = options.address
+                let value = options.value
+                switch (options.commandType) {
+                    case 'Request':
+                        self.requestData(address)
+                        break;
+                    case 'Command':
+                        self.sendCommand(address, value)
+                        break;
+                }
             },
 		}
 		

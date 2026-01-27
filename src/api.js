@@ -380,14 +380,9 @@ module.exports = {
 
 												let value = dataSuffix[1]
 
-                                                if (param1 == '0C' && param2 == '00') { //tally message
-													self.updateTally(param3, value);
-													self.logVerbose('Received Tally Message: ' + value )
-												}
-
 												if (param1 == '0C' && param2 == '00' && param3 == '00') {
 													//subscribe tally message
-													self.logVerbose('Received Subscribe Tally Message')
+													self.logVerbose('Received Subscribe Tally Message: ' + value)
 													let index = 0
 													let halfLength = value.length / 2
 													for (let t = 0; t < halfLength; t++) {
@@ -396,8 +391,7 @@ module.exports = {
 
 														let tallyState = value[index] + value[index + 1]
 														tallyState = tallyState.toString(16).padStart(2, '0').toUpperCase()
-                                                        self.logVerbose('Received Tally Message: ' + input + ', ' + tallyState)
-
+                                                        //self.logVerbose('Received Tally Message: ' + input + ', ' + tallyState)
 														self.updateTally(input, tallyState)
 
 														index = index + 2
@@ -682,7 +676,7 @@ module.exports = {
 	requestData: function (command) {
 		let self = this
 
-		let cmd = 'RQH:' + command + ';\n'
+		let cmd = 'RQH:' + command + ',000001;\n'
 		self.sendRawCommand(cmd)
 	},
 
